@@ -61,3 +61,5 @@ gitGraph
     merge develop
     commit id: "正式版本發布"
 ```
+## 合併保護
+[查看合併說明](MERGE_STRATEGY.md)
