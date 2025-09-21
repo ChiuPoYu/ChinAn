@@ -23,7 +23,7 @@
 ### 分支關係圖
 
 ```mermaid
-gitgraph
+gitGraph
     commit id: "初始提交"
     
     branch develop
