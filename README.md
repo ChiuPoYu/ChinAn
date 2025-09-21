@@ -24,17 +24,17 @@
 
 ```mermaid
 graph TD
-	Main((Main))
-	Develop((Develop))
-	Feature1((feature/功能A))
-	Feature2((feature/功能B))
-	Feature3((feature/功能C))
+    Main((Main))
+    Develop((Develop))
+    Feature1((feature/功能A))
+    Feature2((feature/功能B))
+    Feature3((feature/功能C))
 
-	Main <-- 合併 -- Develop
-	Develop --> Feature1
-	Develop --> Feature2
-	Develop --> Feature3
-	Feature1 --> Develop
-	Feature2 --> Develop
-	Feature3 --> Develop
+    Develop --> Main
+    Develop --> Feature1
+    Develop --> Feature2
+    Develop --> Feature3
+    Feature1 --> Develop
+    Feature2 --> Develop
+    Feature3 --> Develop
 ```
