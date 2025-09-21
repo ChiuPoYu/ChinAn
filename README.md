@@ -24,11 +24,11 @@
 
 ```mermaid
 gitGraph
-    commit id: "初始提交"
+    commit id: "初始版本"
     
     branch develop
     checkout develop
-    commit id: "開發環境建立"
+    commit id: "新版本建立測試環境"
     
     branch featureA
     checkout featureA
