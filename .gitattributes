@@ -1,0 +1,8 @@
+# 保護 README.md 檔案，合併時使用 ours 策略（保留當前分支版本）
+README.md merge=ours
+
+# 保護 .github/workflows/ 目錄下的所有 yml 檔案
+.github/workflows/*.yml merge=ours
+
+# 保護整個 .github/workflows/ 目錄
+.github/workflows/ merge=ours
