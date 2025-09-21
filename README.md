@@ -23,18 +23,41 @@
 ### 分支關係圖
 
 ```mermaid
-graph TD
-    Main((Main))
-    Develop((Develop))
-    Feature1((feature/功能A))
-    Feature2((feature/功能B))
-    Feature3((feature/功能C))
-
-    Develop --> Main
-    Develop --> Feature1
-    Develop --> Feature2
-    Develop --> Feature3
-    Feature1 --> Develop
-    Feature2 --> Develop
-    Feature3 --> Develop
+gitgraph
+    commit id: "初始提交"
+    
+    branch develop
+    checkout develop
+    commit id: "開發環境建立"
+    
+    branch feature/功能A
+    checkout feature/功能A
+    commit id: "功能A開發"
+    commit id: "功能A完成"
+    
+    checkout develop
+    merge feature/功能A
+    commit id: "合併功能A"
+    
+    branch feature/功能B
+    checkout feature/功能B
+    commit id: "功能B開發"
+    commit id: "功能B完成"
+    
+    checkout develop
+    merge feature/功能B
+    commit id: "合併功能B"
+    
+    branch feature/功能C
+    checkout feature/功能C
+    commit id: "功能C開發"
+    commit id: "功能C完成"
+    
+    checkout develop
+    merge feature/功能C
+    commit id: "合併功能C"
+    
+    checkout main
+    merge develop
+    commit id: "正式版本發布"
 ```
