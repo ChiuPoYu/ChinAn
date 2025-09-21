@@ -3,8 +3,8 @@
 ## 專案架構
 
 1. **WebApi**：提供各網頁資料存取 API 接口。
-2. **UserWeb**：一個網頁，提供客戶顯示該車輛保養資訊。
-3. **EmpWeb**：一個網頁，提供員工或管理者維護各車輛資料。
+2. **UserWeb**：一個網頁，提供客戶顯示該車輛保養資訊。<https://salmon-ocean-07c3a3b00.1.azurestaticapps.net>
+3. **EmpWeb**：一個網頁，提供員工或管理者維護各車輛資料。<https://white-dune-0f04a9600.1.azurestaticapps.net>
 
 
 ## 分支管理說明
