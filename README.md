@@ -30,31 +30,31 @@ gitGraph
     checkout develop
     commit id: "開發環境建立"
     
-    branch feature/功能A
-    checkout feature/功能A
+    branch featureA
+    checkout featureA
     commit id: "功能A開發"
     commit id: "功能A完成"
     
     checkout develop
-    merge feature/功能A
+    merge featureA
     commit id: "合併功能A"
     
-    branch feature/功能B
-    checkout feature/功能B
+    branch featureB
+    checkout featureB
     commit id: "功能B開發"
     commit id: "功能B完成"
     
     checkout develop
-    merge feature/功能B
+    merge featureB
     commit id: "合併功能B"
     
-    branch feature/功能C
-    checkout feature/功能C
+    branch featureC
+    checkout featureC
     commit id: "功能C開發"
     commit id: "功能C完成"
     
     checkout develop
-    merge feature/功能C
+    merge featureC
     commit id: "合併功能C"
     
     checkout main
