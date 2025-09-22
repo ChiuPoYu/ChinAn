@@ -1,8 +1,30 @@
 <template>
   <div id="app">
     <header class="header">
-      <h1>🚗 車輛保養查詢系統</h1>
-      <p class="subtitle">客戶查詢端</p>
+      <div class="header-content">
+        <h1>🚗 車輛保養查詢系統</h1>
+        <p class="subtitle">客戶查詢端</p>
+      </div>
+      
+      <!-- 頁面選擇導航 -->
+      <nav class="page-navigation">
+        <button 
+          class="nav-button" 
+          :class="{ active: currentPage === 'maintenance' }"
+          @click="switchPage('maintenance')"
+        >
+          <span class="nav-icon">🔧</span>
+          保養紀錄
+        </button>
+        <button 
+          class="nav-button" 
+          :class="{ active: currentPage === 'parts' }"
+          @click="switchPage('parts')"
+        >
+          <span class="nav-icon">📊</span>
+          耗材替換里程
+        </button>
+      </nav>
     </header>
     
     <main class="main-content">
@@ -31,8 +53,9 @@
         <p>{{ error }}</p>
       </div>
 
-      <!-- 車輛資訊顯示 -->
-      <div v-if="vehicleInfo" class="vehicle-info-section">
+      <!-- 頁面內容切換 -->
+      <div v-if="vehicleInfo" class="page-content">
+        <!-- 車輛基本資訊 -->
         <div class="vehicle-card">
           <h3>車輛基本資訊</h3>
           <div class="info-grid">
@@ -55,60 +78,72 @@
           </div>
         </div>
 
-        <!-- 保養歷史記錄 -->
-        <div class="maintenance-history">
-          <h3>保養歷史記錄</h3>
-          
-          <!-- 日期篩選 -->
-          <div class="date-filter">
-            <label>選擇查看日期：</label>
-            <select v-model="selectedDate" @change="filterMaintenanceRecords">
-              <option value="">全部記錄</option>
-              <option v-for="date in availableDates" :key="date" :value="date">
-                {{ formatDate(date) }}
-              </option>
-            </select>
-          </div>
-
-          <!-- 保養記錄列表 -->
-          <div class="maintenance-records">
-            <div 
-              v-for="record in filteredMaintenanceRecords" 
-              :key="record.id" 
-              class="maintenance-record"
-            >
-              <div class="record-header">
-                <h4>{{ formatDate(record.date) }}</h4>
-                <span class="mileage">里程數: {{ record.mileage }} km</span>
-              </div>
+        <!-- 保養歷史記錄頁面 -->
+        <transition name="page-slide" mode="out-in">
+          <div v-if="currentPage === 'maintenance'" key="maintenance" class="page-maintenance">
+            <div class="maintenance-history">
+              <h3>保養歷史記錄</h3>
               
-              <div class="record-content">
-                <div class="maintenance-items">
-                  <h5>保養項目：</h5>
-                  <div class="items-grid">
-                    <span 
-                      v-for="item in record.maintenanceItems" 
-                      :key="item" 
-                      class="maintenance-item"
-                    >
-                      {{ getMaintenanceItemName(item) }}
-                    </span>
+              <!-- 日期篩選 -->
+              <div class="date-filter">
+                <label>選擇查看日期：</label>
+                <select v-model="selectedDate" @change="filterMaintenanceRecords">
+                  <option value="">全部記錄</option>
+                  <option v-for="date in availableDates" :key="date" :value="date">
+                    {{ formatDate(date) }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- 保養記錄列表 -->
+              <div class="maintenance-records">
+                <div 
+                  v-for="record in filteredMaintenanceRecords" 
+                  :key="record.id" 
+                  class="maintenance-record"
+                >
+                  <div class="record-header">
+                    <h4>{{ formatDate(record.date) }}</h4>
+                    <span class="mileage">里程數: {{ record.mileage }} km</span>
                   </div>
-                </div>
-                
-                <div v-if="record.description" class="description">
-                  <h5>保養內容：</h5>
-                  <p>{{ record.description }}</p>
-                </div>
-                
-                <div class="record-footer">
-                  <span class="cost">費用: NT$ {{ record.cost || '未記錄' }}</span>
-                  <span class="technician">技師: {{ record.technician || '未記錄' }}</span>
+                  
+                  <div class="record-content">
+                    <div class="maintenance-items">
+                      <h5>保養項目：</h5>
+                      <div class="items-grid">
+                        <span 
+                          v-for="item in record.maintenanceItems" 
+                          :key="item" 
+                          class="maintenance-item"
+                        >
+                          {{ getMaintenanceItemName(item) }}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div v-if="record.description" class="description">
+                      <h5>保養內容：</h5>
+                      <p>{{ record.description }}</p>
+                    </div>
+                    
+                    <div class="record-footer">
+                      <span class="cost">費用: NT$ {{ record.cost || '未記錄' }}</span>
+                      <span class="technician">技師: {{ record.technician || '未記錄' }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+
+          <!-- 耗材替換里程頁面 -->
+          <div v-else-if="currentPage === 'parts'" key="parts" class="page-parts">
+            <PartsReplacementTable 
+              :vehicle-info="vehicleInfo"
+              :maintenance-records="maintenanceRecords"
+            />
+          </div>
+        </transition>
       </div>
 
       <!-- 無資料顯示 -->
@@ -116,14 +151,62 @@
         <p>請輸入車牌號碼查詢車輛保養資訊</p>
       </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>聯絡資訊</h4>
+          <div class="contact-info">
+            <div class="contact-item">
+              <span class="contact-icon">📞</span>
+              <span>電話：03-334-0713</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">🏢</span>
+              <span>慶安汽車保養廠</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">🕒</span>
+              <span>營業時間：週一至週六 08:00-18:00</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h4>服務項目</h4>
+          <ul class="service-list">
+            <li>車輛保養維修</li>
+            <li>耗材更換</li>
+            <li>故障檢測</li>
+            <li>定期檢查</li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4>關於我們</h4>
+          <p>專業的汽車保養服務，提供完整的車輛維護解決方案，讓您的愛車保持最佳狀態。</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 慶安汽車保養廠. 版權所有.</p>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
-import apiService from './services/api.js'
+import PartsReplacementTable from './components/PartsReplacementTable.vue'
+
+// 暫時移除 API 服務導入，避免錯誤
+// import apiService from './services/api.js'
 
 export default {
   name: 'App',
+  components: {
+    PartsReplacementTable
+  },
   data() {
     return {
       searchPlateNumber: '',
@@ -133,7 +216,8 @@ export default {
       maintenanceRecords: [],
       selectedDate: '',
       availableDates: [],
-      useMockData: true // 設定為 false 時使用真實 API
+      currentPage: 'maintenance',
+      useMockData: true
     }
   },
   computed: {
@@ -145,6 +229,10 @@ export default {
     }
   },
   methods: {
+    switchPage(page) {
+      this.currentPage = page
+    },
+
     async searchVehicle() {
       if (!this.searchPlateNumber.trim()) {
         this.error = '請輸入車牌號碼'
@@ -158,10 +246,8 @@ export default {
 
       try {
         if (this.useMockData) {
-          // 使用模擬資料
           await this.fetchMockVehicleData(this.searchPlateNumber.trim())
         } else {
-          // 使用真實 API
           await this.fetchRealVehicleData(this.searchPlateNumber.trim())
         }
       } catch (err) {
@@ -173,8 +259,12 @@ export default {
     },
 
     async fetchRealVehicleData(plateNumber) {
+      // 暫時使用模擬資料，避免 API 錯誤
+      await this.fetchMockVehicleData(plateNumber)
+      
+      // TODO: 當 API 服務器準備好時，取消註釋以下代碼
+      /*
       try {
-        // 並行請求車輛資訊和保養記錄
         const [vehicleInfo, maintenanceRecords] = await Promise.all([
           apiService.getVehicleInfo(plateNumber),
           apiService.getMaintenanceRecords(plateNumber)
@@ -186,6 +276,7 @@ export default {
       } catch (error) {
         throw new Error(`無法取得車輛資料: ${error.message}`)
       }
+      */
     },
 
     async fetchMockVehicleData(plateNumber) {
@@ -314,6 +405,10 @@ body {
   text-align: center;
 }
 
+.header-content {
+  margin-bottom: 1.5rem;
+}
+
 .header h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
@@ -324,10 +419,76 @@ body {
   opacity: 0.9;
 }
 
+.page-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.nav-button.active {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border-color: white;
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+}
+
 .main-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  min-height: calc(100vh - 200px);
+}
+
+.page-content {
+  display: grid;
+  gap: 2rem;
+}
+
+/* 頁面切換動畫 */
+.page-slide-enter-active,
+.page-slide-leave-active {
+  transition: all 0.4s ease;
+}
+
+.page-slide-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.page-slide-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.page-maintenance,
+.page-parts {
+  min-height: 400px;
 }
 
 .search-section {
@@ -608,6 +769,99 @@ body {
   
   .items-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .page-navigation {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .nav-button {
+    justify-content: center;
+  }
+}
+
+/* Footer 樣式 */
+.footer {
+  background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+  color: white;
+  margin-top: 3rem;
+  padding: 2rem 0 1rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+  font-size: 1.2rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #cbd5e0;
+}
+
+.contact-icon {
+  font-size: 1.1rem;
+  width: 20px;
+}
+
+.service-list {
+  list-style: none;
+  padding: 0;
+}
+
+.service-list li {
+  padding: 0.25rem 0;
+  color: #cbd5e0;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.service-list li:before {
+  content: "•";
+  color: #667eea;
+  position: absolute;
+  left: 0;
+}
+
+.footer-section p {
+  color: #cbd5e0;
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  border-top: 1px solid #4a5568;
+  padding-top: 1rem;
+  text-align: center;
+  color: #a0aec0;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+  
+  .footer {
+    padding: 1.5rem 0 1rem;
   }
 }
 </style>
