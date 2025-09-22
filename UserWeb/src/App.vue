@@ -133,7 +133,7 @@ export default {
       maintenanceRecords: [],
       selectedDate: '',
       availableDates: [],
-      useMockData: true // 設定為 false 時使用真實 API
+      useMockData: false // 設定為 false 時使用真實 API
     }
   },
   computed: {
