@@ -29,7 +29,7 @@
     
     <main class="main-content">
       <!-- 車輛資訊查詢 -->
-      <div class="search-section">
+      <div class="search-section" v-if="false">
         <h2>車輛資訊查詢</h2>
         <div class="search-form">
           <input 
@@ -220,6 +220,11 @@ export default {
       useMockData: true
     }
   },
+  mounted() {
+    // 頁面載入後自動查詢指定車牌
+    this.searchPlateNumber = 'ABC'
+    this.searchVehicle()
+  },
   computed: {
     filteredMaintenanceRecords() {
       if (!this.selectedDate) {
@@ -229,9 +234,9 @@ export default {
     }
   },
   methods: {
-    switchPage(page) {
+    /*switchPage(page) {
       this.currentPage = page
-    },
+    },*/
 
     async searchVehicle() {
       if (!this.searchPlateNumber.trim()) {
@@ -288,7 +293,7 @@ export default {
         plateNumber: plateNumber,
         model: 'Toyota Camry',
         owner: '王小明',
-        currentMileage: 85000,
+        currentMileage: 90000,
         maintenanceRecords: [
           {
             id: 1,

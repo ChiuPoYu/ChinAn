@@ -87,7 +87,7 @@ export default {
           name: '機油',
           icon: '🛢️',
           lastChange: '2024-01-15',
-          changeMileage: 82000,
+          changeMileage: 85000,
           interval: 5000,
           nextChange: 87000,
           status: this.getPartStatus(currentMileage, 87000, 85000)
@@ -97,10 +97,10 @@ export default {
           name: '機油濾清器',
           icon: '🔧',
           lastChange: '2024-01-15',
-          changeMileage: 82000,
+          changeMileage: 80000,
           interval: 5000,
           nextChange: 87000,
-          status: this.getPartStatus(currentMileage, 87000, 85000)
+          status: this.getPartStatus(currentMileage, 87000, 88000)
         },
         {
           id: 3,
