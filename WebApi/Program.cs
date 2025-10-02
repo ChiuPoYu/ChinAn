@@ -1,3 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using WebApi.Models;
+using WebApi.Services;
+using Microsoft.Extensions.Configuration.Json;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,18 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// µù¥U DbContext
+var mssqlSection = builder.Configuration
+    .GetSection("WriteTo")
+    .GetChildren()
+    .FirstOrDefault(x => x.GetValue<string>("Name") == "MSSQL");
+var connectionString = mssqlSection?.GetSection("Args")?.GetValue<string>("ConnectionString");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+// µù¥U Service
+builder.Services.AddScoped<MaintenanceService>();
 
 // CORS for Vite dev servers and local clients
 var corsPolicyName = "AllowLocalDev";
