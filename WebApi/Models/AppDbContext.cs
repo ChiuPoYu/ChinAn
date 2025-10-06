@@ -86,6 +86,8 @@ public partial class AppDbContext : DbContext
         {
             entity.HasKey(e => e.PlateNumber).HasName("PK__Vehicles__03692625706F3830");
 
+            entity.ToTable("Vehicle");
+
             entity.Property(e => e.PlateNumber).HasMaxLength(20);
             entity.Property(e => e.CreateBy).HasColumnType("datetime");
             entity.Property(e => e.CreateDateTime).HasColumnType("datetime");
