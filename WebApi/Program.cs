@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
 using WebApi.Services;
+using WebApi.Interfaces;
 using Microsoft.Extensions.Configuration.Json;
 
 
@@ -13,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
 // µù¥U DbContext
 var mssqlSection = builder.Configuration
     .GetSection("WriteTo")
@@ -23,7 +26,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 // µù¥U Service
-builder.Services.AddScoped<MaintenanceService>();
+builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
 
 // CORS for Vite dev servers and local clients
 var corsPolicyName = "AllowLocalDev";
