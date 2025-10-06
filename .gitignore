@@ -1,6 +1,7 @@
 
 # Visual Studio
 .vs/
+appsettings.Development.json
 *.suo
 *.user
 *.vsidx
