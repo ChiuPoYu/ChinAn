@@ -50,5 +50,4 @@ TestResults/
 *.tmp
 
 # --- Package ---
-*.package-lock.json
 *.Development.json
