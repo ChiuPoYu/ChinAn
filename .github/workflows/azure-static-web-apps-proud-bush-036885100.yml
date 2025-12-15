@@ -32,6 +32,15 @@ jobs:
                const coredemo = require('@actions/core')
                return await coredemo.getIDToken()
            result-encoding: string
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install dependencies and fix vite permissions
+        run: |
+          cd UserWeb
+          npm install --force
+          chmod +x node_modules/.bin/vite
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
