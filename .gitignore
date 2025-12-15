@@ -48,3 +48,7 @@ TestResults/
 
 # --- Build outputs (misc) ---
 *.tmp
+
+# --- Package ---
+*.package-lock.json
+*.Development.json

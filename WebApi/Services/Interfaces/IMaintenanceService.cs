@@ -1,6 +1,6 @@
 ﻿using WebApi.Models;
 
-namespace WebApi.Interfaces
+namespace WebApi.Services.Interfaces
 {
     public interface IMaintenanceService
     {

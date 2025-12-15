@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using WebApi.Models;
-using WebApi.Services;
-using WebApi.Interfaces;
 using Microsoft.Extensions.Configuration.Json;
+using WebApi.Models;
+using WebApi.Repositories;
+using WebApi.Repositories.Interfaces;
+using WebApi.Services;
+using WebApi.Services.Interfaces;
+using WebApi.Resources;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,32 +17,27 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
 // µù¥U DbContext
-var mssqlSection = builder.Configuration
-    .GetSection("WriteTo")
-    .GetChildren()
-    .FirstOrDefault(x => x.GetValue<string>("Name") == "MSSQL");
-var connectionString = mssqlSection?.GetSection("Args")?.GetValue<string>("ConnectionString");
+var connectionString = builder.Configuration.GetValue<string>(AppSettingsKey.DBConnection);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 // µù¥U Service
 builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
 
+// µù¥URepositories
+builder.Services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
+
+
 // CORS for Vite dev servers and local clients
-var corsPolicyName = "AllowLocalDev";
+var allowOrigins = builder.Configuration.GetSection(AppSettingsKey.AllowedOrigins).Get<string[]>();
+var corsPolicyName = builder.Configuration.GetValue<string>(AppSettingsKey.CorsPolicyName);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: corsPolicyName, policy =>
     {
         policy
-            .WithOrigins(
-                "http://localhost:5173", // Vite default (UserWeb)
-                "http://localhost:5174", // another Vite port if needed
-                "http://localhost:3000"   // matches current API_BASE_URL origin in UserWeb
-            )
+            .WithOrigins(allowOrigins)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
