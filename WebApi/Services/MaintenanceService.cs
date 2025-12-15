@@ -1,6 +1,6 @@
 ﻿using WebApi.Models;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Interfaces;
+using WebApi.Services.Interfaces;
 
 namespace WebApi.Services
 {
@@ -13,7 +13,6 @@ namespace WebApi.Services
             _context = context;
         }
 
-        
         public async Task<List<MaintenanceRecord>> GetMaintenanceRecordsByPlateNumberAsync(string plateNumber)
         {
             return await _context.MaintenanceRecords

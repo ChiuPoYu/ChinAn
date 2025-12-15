@@ -1,8 +1,5 @@
 // API 服務檔案
-// 在 Vite 中使用 import.meta.env 讀取環境變數；避免於瀏覽器出現 process 未定義
-const API_BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL)
-  ? import.meta.env.VITE_API_URL
-  : 'http://localhost:3000/api'
+const API_BASE_URL = 'http://localhost:3000/api'
 
 class ApiService {
   constructor() {

@@ -40,7 +40,7 @@
 {
   id: 1,
   date: "2024-01-15",
-  mileage: 82000,
+  mileage: 2000,
   maintenanceItems: ["oil_change", "filter_change", "brake_check"],
   description: "定期保養，更換機油及濾清器，檢查煞車系統",
   cost: 2500,

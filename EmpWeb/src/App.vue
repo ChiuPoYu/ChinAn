@@ -23,7 +23,7 @@
         </div>
         
         <div class="action-section">
-          <h2>快速操作</h2>
+          <h2>765168432123</h2>
           <div class="action-buttons">
             <button @click="showAddVehicle = true" class="btn btn-primary">
               新增車輛
