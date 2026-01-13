@@ -7,10 +7,12 @@ on:
   push:
     branches:
       - main
+      - development
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [opened, synchronize, reopened]
     branches:
       - main
+      - development
 
 jobs:
   build:
@@ -33,16 +35,16 @@ jobs:
         run: dotnet publish ./WebApi/WebApi.sln -c Release -o "./publish"
 
       - name: Upload artifact for deployment job
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
           path: ./publish
-      - name: Wait for resource propagation
-        run: sleep 60
 
   deploy:
     runs-on: windows-latest
     needs: build
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development')
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
