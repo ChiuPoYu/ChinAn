@@ -66,6 +66,6 @@ jobs:
         with:
           app-name: 'ChinAn-Api'
           slot-name: 'Production'
-          package: ./publish
+          package: .
           
           
