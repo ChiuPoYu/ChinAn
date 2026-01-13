@@ -2,13 +2,13 @@
   
 ## 專案架構
 前端使用Vue.js，後端使用.NET 8 API，進行前後端分離
-1. **WebApi**：提供各網頁資料存取 API 接口。
+1. **WebApi**：提供各網頁資料存取 API 接口。 端點參考<https://chinan-api-hzccg2bafue3fzba.canadacentral-01.azurewebsites.net/swagger/index.html>
 2. **UserWeb(測試環境)**：一個網頁，提供客戶顯示該車輛保養資訊。<https://proud-bush-036885100.1.azurestaticapps.net>
 3. **EmpWeb(測試環境)**：一個網頁，提供員工或管理者維護各車輛資料。<https://white-bay-0b4cccf00.2.azurestaticapps.net>
-
 2. **UserWeb(正式環境)**：一個網頁，提供客戶顯示該車輛保養資訊。<https://salmon-ocean-07c3a3b00.1.azurestaticapps.net>
 3. **EmpWeb(正式環境)**：一個網頁，提供員工或管理者維護各車輛資料。<https://white-dune-0f04a9600.1.azurestaticapps.net>
-AP主機/DB主機環境皆架設在Azure，使用Docker容器化部署專案，並建立PR Agent協助檢查每次MR
+
+AP主機/DB主機環境皆架設在Azure，使用Docker容器化部署專案，並建立PR Agent協助檢查每次PR、搭配SONARCUBE
 
 ## 分支管理說明
 
