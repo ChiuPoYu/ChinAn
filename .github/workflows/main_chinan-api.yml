@@ -37,6 +37,8 @@ jobs:
         with:
           name: .net-app
           path: ./publish
+      - name: Wait for resource propagation
+        run: sleep 60
 
   deploy:
     runs-on: windows-latest
