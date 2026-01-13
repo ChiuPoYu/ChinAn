@@ -1,5 +1,7 @@
+
 # Visual Studio
 .vs/
+appsettings.Development.json
 *.suo
 *.user
 *.vsidx
@@ -11,3 +13,41 @@ obj/
 
 # Others
 *.cache
+
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.orig
+*.log
+.vscode/
+.idea/
+
+# --- Node / Vite (UserWeb, EmpWeb) ---
+**/node_modules/
+**/dist/
+**/.cache/
+**/.vite/
+**/.eslintcache
+**/.tsbuildinfo
+
+# Env files (keep templates like .env.example)
+.env
+.env.*
+!.env.example
+
+# --- Test / Coverage ---
+coverage/
+**/coverage/
+
+# --- .NET (WebApi) ---
+**/bin/
+**/obj/
+TestResults/
+
+# --- Build outputs (misc) ---
+*.tmp
+
+# --- Package ---
+*.Development.json
