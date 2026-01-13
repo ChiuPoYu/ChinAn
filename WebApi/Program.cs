@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.Json;
-using WebApi.Models;
+using System.Reflection;
+using WebApi.Models.DBModels;
 using WebApi.Repositories;
 using WebApi.Repositories.Interfaces;
-using WebApi.Services;
-using WebApi.Services.Interfaces;
 using WebApi.Resources;
+using WebApi.Services.App;
+using WebApi.Services.Interfaces.App;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,13 @@ builder.Services.AddScoped<IMaintenanceService, MaintenanceService>();
 
 // µù¥URepositories
 builder.Services.AddScoped<IMaintenanceRepository, MaintenanceRepository>();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+});
 
 
 // CORS for Vite dev servers and local clients

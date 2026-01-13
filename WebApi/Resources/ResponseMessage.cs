@@ -25,8 +25,8 @@
         /// <summary>
         /// Token無效。
         /// </summary>
-        public const string InvalidToken = "無效的令牌";
-        public const string InvalidTokenCode = "40101";
+        public const string InvaliViewken = "無效的令牌";
+        public const string InvaliViewkenCode = "40101";
 
 
         #endregion
