@@ -24,10 +24,10 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build ./ChinAn/WebApi/WebApi.csproj --configuration Release
+        run: dotnet build ./WebApi/WebApi.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./ChinAn/WebApi/WebApi.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish ./WebApi/WebApi.sln -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
