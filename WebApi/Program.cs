@@ -55,11 +55,9 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//TODO: 暫時開放swagger，之後前端寫好框架後再鎖住
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // Disable HTTPS redirection to simplify local dev with plain HTTP
 // app.UseHttpsRedirection();

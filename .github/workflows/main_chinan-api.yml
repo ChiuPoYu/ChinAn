@@ -7,7 +7,10 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
 
 jobs:
   build:
@@ -27,13 +30,15 @@ jobs:
         run: dotnet build ./WebApi/WebApi.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./WebApi/WebApi.sln -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish ./WebApi/WebApi.sln -c Release -o "./publish"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ./publish
+      - name: Wait for resource propagation
+        run: sleep 60
 
   deploy:
     runs-on: windows-latest
@@ -62,4 +67,5 @@ jobs:
           app-name: 'ChinAn-Api'
           slot-name: 'Production'
           package: .
+          
           
