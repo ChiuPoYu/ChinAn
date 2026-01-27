@@ -1,14 +1,43 @@
 # ChinAn
-  
-## 專案架構
-前端使用Vue.js，後端使用.NET 8 API，進行前後端分離
-1. **WebApi**：提供各網頁資料存取 API 接口。 端點參考<https://chinan-api-hzccg2bafue3fzba.canadacentral-01.azurewebsites.net/swagger/index.html>
-2. **UserWeb(測試環境)**：一個網頁，提供客戶顯示該車輛保養資訊。<https://proud-bush-036885100.1.azurestaticapps.net>
-3. **EmpWeb(測試環境)**：一個網頁，提供員工或管理者維護各車輛資料。<https://white-bay-0b4cccf00.2.azurestaticapps.net>
-2. **UserWeb(正式環境)**：一個網頁，提供客戶顯示該車輛保養資訊。<https://salmon-ocean-07c3a3b00.1.azurestaticapps.net>
-3. **EmpWeb(正式環境)**：一個網頁，提供員工或管理者維護各車輛資料。<https://white-dune-0f04a9600.1.azurestaticapps.net>
 
-AP主機/DB主機環境皆架設在Azure，使用Docker容器化部署專案，並建立PR Agent協助檢查每次PR、搭配SONARCUBE
+## 專案總覽
+本專案採前後端分離：前端使用 Vue 3 + Vite SPA，後端使用 .NET 8 Web API。
+所有詳細架構、規範文件集中在 `AI-Construction/`，供快速查閱與一致開發規格。
+
+---
+
+## 子專案一覽（快速瀏覽）
+| 專案 | 說明 | 主要技術 | README |
+|---|---|---|---|
+| WebApi | 提供各網頁資料存取 API 接口 | .NET 8 Web API、EF Core、MySQL | [API 專案總覽](AI-Construction/Api-Constructions/README.md) |
+| UserWeb | 客戶端前台網站 | Vue 3 + Vite SPA | [前端專案總覽](AI-Construction/Vue3-Costructions/README.md) |
+| EmpWeb | 員工/管理端網站 | Vue 3 + Vite SPA | [前端專案總覽](AI-Construction/Vue3-Costructions/README.md) |
+
+---
+
+## 架構文件快速入口
+### 後端（.NET 8 Web API）
+- 專案總覽：[後端 README](AI-Construction/Api-Constructions/README.md)
+- 架構設計：[ARCHITECTURE](AI-Construction/Api-Constructions/ARCHITECTURE.md)
+- API 規範：[API_GUIDELINES](AI-Construction/Api-Constructions/API_GUIDELINES.md)
+- 程式撰寫規範：[CODING_GUIDELINES](AI-Construction/Api-Constructions/CODING_GUIDELINES.md)
+
+### 前端（Vue 3 + Vite SPA）
+- 專案總覽：[前端 README](AI-Construction/Vue3-Costructions/README.md)
+- 架構設計：[ARCHITECTURE](AI-Construction/Vue3-Costructions/ARCHITECTURE.md)
+- API Client：[API_CLIENT_GUIDE](AI-Construction/Vue3-Costructions/API_CLIENT_GUIDE.md)
+- 程式撰寫規範：[CODING_GUIDELINES](AI-Construction/Vue3-Costructions/CODING_GUIDELINES.md)
+
+---
+
+## 環境連結
+- WebApi Swagger（測試）：[Swagger](https://chinan-api-hzccg2bafue3fzba.canadacentral-01.azurewebsites.net/swagger/index.html)
+- UserWeb（測試）：[Staging](https://proud-bush-036885100.1.azurestaticapps.net)
+- EmpWeb（測試）：[Staging](https://white-bay-0b4cccf00.2.azurestaticapps.net)
+- UserWeb（正式）：[Production](https://salmon-ocean-07c3a3b00.1.azurestaticapps.net)
+- EmpWeb（正式）：[Production](https://white-dune-0f04a9600.1.azurestaticapps.net)
+
+AP 主機 / DB 主機環境皆架設在 Azure，使用 Docker 容器化部署專案，並建立 PR Agent 協助檢查每次 PR，搭配 SonarQube 進行品質控管。
 
 ## 分支管理說明
 
