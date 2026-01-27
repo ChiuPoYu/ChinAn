@@ -52,9 +52,9 @@
 ---
 
 ## Documentation
-- 架構說明：ARCHITECTURE.md
-- API 規範：API_GUIDELINES.md
-- 程式撰寫規範：CODING_GUIDELINES.md
+- 架構設計：[ARCHITECTURE](AI-Construction/Api-Constructions/ARCHITECTURE.md)
+- API 規範：[API_GUIDELINES](AI-Construction/Api-Constructions/API_GUIDELINES.md)
+- 程式撰寫規範：[CODING_GUIDELINES](AI-Construction/Api-Constructions/CODING_GUIDELINES.md)
 
 ---
 
