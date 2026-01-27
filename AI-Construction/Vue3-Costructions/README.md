@@ -32,9 +32,9 @@
 - Pages 放在 `src/pages/`
 
 更多說明：
-- `FRONTEND_ARCHITECTURE.md`
-- `FRONTEND_API_CLIENT_GUIDE.md`
-- `FRONTEND_CODING_GUIDELINES.md`
+- 架構設計：[ARCHITECTURE](AI-Construction/Vue3-Costructions/ARCHITECTURE.md)
+- API Client：[API_CLIENT_GUIDE](AI-Construction/Vue3-Costructions/API_CLIENT_GUIDE.md)
+- 程式撰寫規範：[CODING_GUIDELINES](AI-Construction/Vue3-Costructions/CODING_GUIDELINES.md)
 
 ---
 
